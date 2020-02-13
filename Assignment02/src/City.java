@@ -36,17 +36,17 @@ public class City implements Comparable<City> {
     public int compareTo(City compare) {
         // if they're equal we can just return 0 here
         if (equals(compare))
-            return 0;
+            // If its here, compare returned 0
+            if (population >= compare.population)
+                return 1;
+            else
+                return -1;
 
         if (name.compareTo(compare.name) > 0)
             return 1;
-        else if (name.compareTo(compare.name) < 0)
-            return -1;
-
-        // If its here, compare returned 0
-        if (population > compare.population)
-            return 1;
         else
             return -1;
+
+        
     }
 }
