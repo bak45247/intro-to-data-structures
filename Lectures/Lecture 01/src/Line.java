@@ -28,17 +28,4 @@ public class Line {
 		return output;
 	}
 
-	public double length(){
-		// double diff1 = (this.start.getX() - this.end.getX()) * (this.start.getX() - this.end.getX());
-		// double diff2 = (this.start.getY() - this.end.getY()) * (this.start.getY() - this.end.getY());
-		// double sum = diff1 + diff2;
-		// return Math.sqrt(sum);
-
-		return Point.distance(this.start, this.end);
-	}
-
-	public Point midPoint(){
-		return Point.midPoint(this.start, this.end);
-	}
-
 }
