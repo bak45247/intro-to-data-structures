@@ -11,28 +11,54 @@ public class City implements Comparable<City> {
         setPopulation(newPopulation);
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
 
+    
+    /** 
+     * @param newName
+     */
     public void setName(String newName) {
         name = newName;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getPopulation() {
         return population;
     }
 
+    
+    /** 
+     * @param newPopulation
+     */
     public void setPopulation(int newPopulation) {
         population = newPopulation;
     }
 
+    
+    /** 
+     * @param compare
+     * @return boolean
+     */
     public boolean equals(City compare) {
         if (compare.name.equalsIgnoreCase(name) && compare.population == population)
             return true;
         return false;
     }
 
+    
+    /** 
+     * @param compare
+     * @return int
+     */
     public int compareTo(City compare) {
         // if they're equal we can just return 0 here
         if (equals(compare))
