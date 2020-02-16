@@ -56,11 +56,18 @@ public class City implements Comparable<City> {
 
     
     /** 
+     * @return String
+     */
+    public String toString(){
+        return(name + "\t" + population + "");
+    }
+
+    
+    /** 
      * @param compare
      * @return int
      */
     public int compareTo(City compare) {
-        // if they're equal we can just return 0 here
         if (equals(compare))
             // If its here, compare returned 0
             if (population >= compare.population)
@@ -72,7 +79,5 @@ public class City implements Comparable<City> {
             return 1;
         else
             return -1;
-
-        
     }
 }

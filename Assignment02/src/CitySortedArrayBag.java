@@ -1,7 +1,10 @@
 import java.util.Iterator;
 
-public class CitySortedArrayBag {
+public class CitySortedArrayBag implements Iterable<City>{
 
+    /**
+     * instance variables: numCities - int - number of cities in the bag, cities - City[] - the list of cities in the bag
+     */
     private int numCities;
     private City[] cities;
 
@@ -47,7 +50,7 @@ public class CitySortedArrayBag {
         String toReturn = "City\tPopulation\n --------------------\n";
 
         for(int i = 0; i < numCities; i++){
-            toReturn += cities[i].getName() + "\t" + cities[i].getPopulation() + "\n";
+            toReturn += cities[i].toString() + "\n";
         }
 
         return toReturn;
@@ -71,7 +74,18 @@ public class CitySortedArrayBag {
      * @param city
      */
     public void remove(City city){
-        //TODO: remove "city" from "cities" and shuffle down if necessary
+        for(int i = 0; i < numCities; i++){
+            if(city.equals(cities[i])){
+                cities[i] = cities[i + 1];
+                for(int j = i + 1; j < numCities; j++){
+                    if(j != numCities - 1)
+                        cities[j] = cities[j + 1];
+                    else
+                        cities[j] = null;
+                }
+                numCities -= 1;
+            }
+        }
     }
 
     
@@ -83,7 +97,7 @@ public class CitySortedArrayBag {
         int total = 0;
 
         for(int i = 0; i < numCities; i++){
-            if(name.equals(cities[i].getName()))
+            if(name.equalsIgnoreCase(cities[i].getName()))
                 total += 1;
         }
         return total; // return the total, if we don't find any, it will still be 0
@@ -135,6 +149,15 @@ public class CitySortedArrayBag {
         }
 
         return true; // getting here means we matched the contents of both bags at all indices
+    }
+
+    
+    /** 
+     * @return Iterator<City>
+     */
+    @Override
+    public Iterator<City> iterator(){
+        return new CityArrayBagIterator();
     }
 
     public class CityArrayBagIterator implements Iterator<City>{
