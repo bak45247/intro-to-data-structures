@@ -3,3 +3,4 @@
 *.class
 .vs/
 *.zip
+.DS_Store
