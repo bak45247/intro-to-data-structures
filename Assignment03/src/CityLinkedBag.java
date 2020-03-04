@@ -17,3 +17,9 @@
  * lessThan(City): CityNode - return linked list of CityNodes less than given City (inclusive)
  * getMax(): City - return "largest" City based on compareTo
  */
+
+ public class CityLinkedBag {
+
+    private CityNode head;
+    private int manyItems;
+ }
