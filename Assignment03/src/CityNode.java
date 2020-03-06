@@ -7,7 +7,6 @@
         setData(newData);
         setLink(newLink);
      }
-
      
      /** 
       * @return City
