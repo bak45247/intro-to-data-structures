@@ -1,4 +1,6 @@
-public class CityLinkedBag {
+import java.util.Iterator;
+
+public class CityLinkedBag implements Iterable<City> {
 
    /**
     * Instance Variables CityNode head - the start of the linked list int manyItems
@@ -210,5 +212,11 @@ public class CityLinkedBag {
       }
 
       return less;
+   }
+
+   @Override
+   public Iterator<City> iterator() {
+
+      return new CityLinkedBagIterator(head);
    }
 }
