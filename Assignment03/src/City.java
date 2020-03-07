@@ -72,8 +72,10 @@ public class City implements Comparable<City> {
             // If its here, compare returned 0
             if (population >= compare.population)
                 return 1;
-            else
+            else if(population <= compare.population)
                 return -1;
+            else
+                return 0;
 
         if (name.compareTo(compare.name) > 0)
             return 1;

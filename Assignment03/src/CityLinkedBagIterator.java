@@ -5,12 +5,25 @@ import java.util.Iterator;
  * implement Iterable<City>
  */
 
-public class CityLinkedBagIterator implements Iterable<City> {
+public class CityLinkedBagIterator implements Iterator<City> {
 
-    @Override
-    public Iterator<City> iterator() {
-        // TODO Auto-generated method stub
-        return null;
+    private CityNode cursor;
+
+    public CityLinkedBagIterator(CityNode head) {
+        cursor = head;
     }
 
- }
+    @Override
+    public boolean hasNext() {
+        if (cursor != null)
+            return true;
+        return false;
+    }
+
+    @Override
+    public City next() {
+        City output = cursor.getData();
+        cursor = cursor.getLink();
+        return output;
+    }
+}
