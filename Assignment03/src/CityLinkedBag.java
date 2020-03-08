@@ -117,13 +117,13 @@ public class CityLinkedBag implements Iterable<City> {
     * @param index
     * @return CityNode
     */
-   public CityNode grab(int index) {
+   public City grab(int index) {
       CityNode probe = head;
 
       for (int i = 0; i < index; i++)
          probe = probe.getLink();
 
-      return probe;
+      return probe.getData();
    }
 
    /**
@@ -165,7 +165,7 @@ public class CityLinkedBag implements Iterable<City> {
       int count = 0;
 
       while (probe != null) {
-         if (start.compareTo(probe.getData()) >= 0 && end.compareTo(probe.getData()) <= 0)
+         if (start.compareTo(probe.getData()) <= 0 && end.compareTo(probe.getData()) >= 0)
             count += 1;
 
          probe = probe.getLink();
@@ -219,7 +219,7 @@ public class CityLinkedBag implements Iterable<City> {
       CityNode less = new CityNode(null, null);
 
       while (probe != null) {
-         if (city.compareTo(probe.getData()) >= 0) {
+         if (city.compareTo(probe.getData()) <= 0) {
             less.addNodeAfter(new CityNode(probe.getData(), null));
             less = less.getLink();
          }

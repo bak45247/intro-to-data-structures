@@ -77,7 +77,7 @@ public class City implements Comparable<City> {
             else
                 return 0;
 
-        if (name.compareTo(compare.name) > 0)
+        else if (name.compareToIgnoreCase(compare.name) > 0)
             return 1;
         else
             return -1;
