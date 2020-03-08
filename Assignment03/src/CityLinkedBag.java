@@ -24,7 +24,7 @@ public class CityLinkedBag implements Iterable<City> {
    public void display() {
       CityNode probe = head.getLink();
       for (int i = 0; i < manyItems; i++) {
-         System.out.println(probe);
+         System.out.println(probe.getData());
 
          probe = probe.getLink();
       }
@@ -155,6 +155,11 @@ public class CityLinkedBag implements Iterable<City> {
       return total;
    }
 
+   /**
+    * @param start
+    * @param end
+    * @return int
+    */
    public int countRange(City start, City end) {
       CityNode probe = head.getLink();
       int count = 0;
@@ -169,6 +174,10 @@ public class CityLinkedBag implements Iterable<City> {
       return count;
    }
 
+   /**
+    * @param findCity
+    * @return int
+    */
    public int positionOf(City findCity) {
       CityNode probe = head.getLink();
       int position = 1;
@@ -184,6 +193,9 @@ public class CityLinkedBag implements Iterable<City> {
       return -1;
    }
 
+   /**
+    * @return City
+    */
    public City getMax() {
       CityNode probe = head.getLink();
       City max = probe.getData();
@@ -198,6 +210,10 @@ public class CityLinkedBag implements Iterable<City> {
       return max;
    }
 
+   /**
+    * @param city
+    * @return CityNode
+    */
    public CityNode lessThan(City city) {
       CityNode probe = head.getLink();
       CityNode less = new CityNode(null, null);
@@ -214,6 +230,9 @@ public class CityLinkedBag implements Iterable<City> {
       return less;
    }
 
+   /**
+    * @return Iterator<City>
+    */
    @Override
    public Iterator<City> iterator() {
 
