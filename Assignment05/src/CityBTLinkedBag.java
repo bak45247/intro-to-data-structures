@@ -1,6 +1,6 @@
 /**
  * Methods to do still
- * add, search, contains, countRange, remove
+ * search, contains, countRange, remove
  */
 
 public class CityBTLinkedBag {
@@ -27,6 +27,21 @@ public class CityBTLinkedBag {
      */
     public void add(City toAdd){
         // todo: add an element to the tree
+        CityBTNode addBelow = addAux(root, toAdd);
+        if(addBelow.getData().compareTo(toAdd) >= 0)
+            addBelow.setRight(new CityBTNode(toAdd, null, null));
+        else
+            addBelow.setLeft(new CityBTNode(toAdd, null, null));
+    }
+
+    private CityBTNode addAux(CityBTNode node, City toAdd){
+        if(node.isLeaf())
+            return node;
+
+        if(node.getData().compareTo(toAdd) <= 0)
+            return addAux(node.getRight(), toAdd);
+        else
+            return addAux(node.getLeft(), toAdd);
     }
 
     
@@ -41,7 +56,7 @@ public class CityBTLinkedBag {
      * @param find
      */
     public void search(String key){
-        // todo: do all the things including the search key
+        // todo: print all the things including the search key
     }
 
     

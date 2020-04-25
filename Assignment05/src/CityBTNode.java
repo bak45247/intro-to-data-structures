@@ -26,29 +26,52 @@ public class CityBTNode {
 		this.left = initialLeft;
 		this.right = initialRight;
 	}
-
+	
+	/** 
+	 * @return City
+	 */
 	// Getters and Setters
 
 	public City getData() {
 		return data;
 	}
 
+	
+	/** 
+	 * @param data
+	 */
 	public void setData(City data) {
 		this.data = data;
 	}
 
+	
+	/** 
+	 * @return CityBTNode
+	 */
 	public CityBTNode getLeft() {
 		return left;
 	}
 
+	
+	/** 
+	 * @param left
+	 */
 	public void setLeft(CityBTNode left) {
 		this.left = left;
 	}
 
+	
+	/** 
+	 * @return CityBTNode
+	 */
 	public CityBTNode getRight() {
 		return right;
 	}
 
+	
+	/** 
+	 * @param right
+	 */
 	public void setRight(CityBTNode right) {
 		this.right = right;
 	}
@@ -104,6 +127,11 @@ public class CityBTNode {
 			return 1 + treeSize(root.left) + treeSize(root.right);
 	}
 
+	
+	/** 
+	 * @param root
+	 * @return CityBTNode
+	 */
 	public static CityBTNode treeCopy(CityBTNode root) {
 		
 		if ( root == null)
@@ -172,6 +200,10 @@ public class CityBTNode {
 
 	}
 	
+	
+	/** 
+	 * @return CityBTNode
+	 */
 	public CityBTNode removeLeftmost() {
 
 		if (left == null)
@@ -185,6 +217,10 @@ public class CityBTNode {
 
 	}
 	
+	
+	/** 
+	 * @return int
+	 */
 	public int treeSum() {
 
 		if (isLeaf())
