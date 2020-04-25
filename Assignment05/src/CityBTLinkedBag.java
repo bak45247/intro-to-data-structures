@@ -1,6 +1,6 @@
 /**
  * Methods to do still
- * search, contains, countRange, remove
+ * remove
  */
 
 public class CityBTLinkedBag {
@@ -13,10 +13,18 @@ public class CityBTLinkedBag {
         root.setRight(null);
     }
 
+    
+    /** 
+     * @return CityBTNode
+     */
     public CityBTNode getRoot(){
         return root;
     }
 
+    
+    /** 
+     * @param cityData
+     */
     public void setRoot(City cityData){
         root.setData(cityData);
     }
@@ -34,6 +42,12 @@ public class CityBTLinkedBag {
             addBelow.setLeft(new CityBTNode(toAdd, null, null));
     }
 
+    
+    /** 
+     * @param node
+     * @param toAdd
+     * @return CityBTNode
+     */
     private CityBTNode addAux(CityBTNode node, City toAdd){
         if(node.isLeaf())
             return node;
@@ -56,8 +70,24 @@ public class CityBTLinkedBag {
      * @param find
      */
     public void search(String key){
-        // todo: print all the things including the search key
+        searchAux(root, key);
     }
+
+    
+    /** 
+     * @param root
+     * @param key
+     */
+    private void searchAux(CityBTNode root, String key) {
+        if(root.isLeaf())
+            return;
+        
+        if(root.getData().getName().equalsIgnoreCase(key))
+            System.out.println(root.getData());
+        
+        searchAux(root.getLeft(), key);
+        searchAux(root.getRight(), key);
+	}
 
     
     /** 
@@ -68,6 +98,12 @@ public class CityBTLinkedBag {
         return countOccurancesAux(root, value);
     }
 
+    
+    /** 
+     * @param root
+     * @param value
+     * @return int
+     */
     private int countOccurancesAux(CityBTNode root, City value){
         if(root == null)
             return 0;
@@ -85,10 +121,27 @@ public class CityBTLinkedBag {
      * @return boolean
      */
     public boolean contains(String key){
-        // todo: search for the provided search key
-        // true if found, false if not
-        return false;
+        return containsAux(root, key);
     }
+
+    
+    /** 
+     * @param root
+     * @param key
+     * @return boolean
+     */
+    private boolean containsAux(CityBTNode root, String key) {
+        // base cases: leaf, search key found
+        if(root.isLeaf() && !root.getData().getName().equalsIgnoreCase(key))
+            return false;
+        else if(root.getData().getName().equalsIgnoreCase(key))
+            return true;
+        
+        containsAux(root.getLeft(), key); 
+        containsAux(root.getRight(), key);
+
+        return false;
+	}
 
     
     /** 
@@ -97,8 +150,25 @@ public class CityBTLinkedBag {
      * @return int
      */
     public int countRange(City low, City High){
-        // todo: return the number of items between low and high (inclusive)
-        return -1;
+        return countRangeAux(root, low, High);
+    }
+
+    
+    /** 
+     * @param root
+     * @param high
+     * @param low
+     * @return int
+     */
+    private int countRangeAux(CityBTNode root, City high, City low){
+        if(root == null)
+            return 0;
+        
+        int count = 0;
+        if(root.getData().compareTo(high) <= 0 && root.getData().compareTo(low) >= 0)
+            count += 1;
+        
+        return count + countRangeAux(root.getLeft(), high, low) + countRangeAux(root.getRight(), high, low);
     }
 
     
@@ -110,15 +180,51 @@ public class CityBTLinkedBag {
     }
 
     
+    
     /** 
-     * @param target
+     * @param City
      * @return boolean
      */
-    public boolean remove(City toRemove){
-        //todo: remove exactly 1 instance of the provided search term from the tree
-        // true if removed false if not
-        return false;
-    }
+    public boolean remove(City target){ // This is the code we did in class, adapted to be for my CityBTNode datatype
+		
+		CityBTNode cursor = root;
+		CityBTNode parentOfCursor = null;
+		boolean output = true;
+		
+		while ((cursor!=null) && (!cursor.getData().equals(target))){
+			parentOfCursor = cursor;
+			if (cursor.getData().compareTo(target) < 0)
+				cursor = cursor.getLeft();
+			else
+				cursor = cursor.getRight();
+		}
+		
+		//Case 1: if cursor is null, target is not found
+		if (cursor == null)
+			return false;
+		else if (cursor.getLeft() == null){
+			//case 2: if cursor is root, change root
+			if (cursor == root)
+				root = cursor.getRight();
+			else{
+				//case 3: replace cursor with its right subtree
+				if (cursor == parentOfCursor.getLeft())
+					parentOfCursor.setLeft(cursor.getRight());
+				else
+					parentOfCursor.setRight(cursor.getRight());
+			}
+				
+		}else{
+			//case 4: replace the cursor with the rightmost element in the left subtree
+			cursor.setData(cursor.getLeft().getRightmostData());
+			cursor.setLeft(cursor.getLeft().removeRightmost());
+			
+		}
+			
+		
+		return output;
+		
+	}
 
     public void displayLowToHigh(){
         root.inorderPrint();
