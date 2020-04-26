@@ -1,6 +1,5 @@
 /**
  * Methods to do still
- * remove
  */
 
 public class CityBTLinkedBag {
@@ -8,9 +7,7 @@ public class CityBTLinkedBag {
     private CityBTNode root;
     
     public CityBTLinkedBag(City rootCity){
-        setRoot(rootCity);
-        root.setLeft(null);
-        root.setRight(null);
+        root = new CityBTNode(rootCity, null, null);
     }
 
     
@@ -30,33 +27,38 @@ public class CityBTLinkedBag {
     }
 
     
-    /** 
-     * @param newCity
-     */
-    public void add(City toAdd){
-        // todo: add an element to the tree
-        CityBTNode addBelow = addAux(root, toAdd);
-        if(addBelow.getData().compareTo(toAdd) >= 0)
-            addBelow.setRight(new CityBTNode(toAdd, null, null));
-        else
-            addBelow.setLeft(new CityBTNode(toAdd, null, null));
-    }
-
-    
-    /** 
-     * @param node
-     * @param toAdd
-     * @return CityBTNode
-     */
-    private CityBTNode addAux(CityBTNode node, City toAdd){
-        if(node.isLeaf())
-            return node;
-
-        if(node.getData().compareTo(toAdd) <= 0)
-            return addAux(node.getRight(), toAdd);
-        else
-            return addAux(node.getLeft(), toAdd);
-    }
+    public void add(City element){
+		
+		//Create IntBTNode with data = element
+		CityBTNode newNode = new CityBTNode(element,null,null);
+		
+		
+		if (root == null) //if the tree is empty, the new node becomes the root
+			root = newNode;
+		else{
+			
+			//if the tree is not empty, start from the root and go down the tree 
+			CityBTNode cursor = root;
+			CityBTNode parentOfCursor = null;
+			
+			while (cursor != null){
+				//need to keep track of parent of the new node
+				parentOfCursor = cursor;
+				if (cursor.getData().compareTo(element) < 0)
+					cursor = cursor.getLeft();
+				else
+					cursor = cursor.getRight();
+			}
+			//at this point of time, the new element can be inserted as a child of parent
+	
+			if (parentOfCursor.getData().compareTo(element) < 0)
+				parentOfCursor.setLeft(newNode);
+			else
+				parentOfCursor.setRight(newNode);
+		}
+		
+		
+	}
 
     
     /** 
@@ -85,8 +87,10 @@ public class CityBTLinkedBag {
         if(root.getData().getName().equalsIgnoreCase(key))
             System.out.println(root.getData());
         
-        searchAux(root.getLeft(), key);
-        searchAux(root.getRight(), key);
+        if(root.getLeft() != null)
+            searchAux(root.getLeft(), key);
+        if(root.getRight() != null)
+            searchAux(root.getRight(), key);
 	}
 
     
@@ -176,8 +180,15 @@ public class CityBTLinkedBag {
      * @return int
      */
     public int total(){
-        return root.treeSum();
+        return totalAux(root);
     }
+
+    private int totalAux(CityBTNode root) {
+        if(root == null)
+            return 0;
+        
+        return root.getData().getPopulation() + totalAux(root.getLeft()) + totalAux(root.getRight());
+	}
 
     
     
